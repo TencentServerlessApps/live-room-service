@@ -1,0 +1,68 @@
+component: multi-scf
+name: live-room-service
+app: ${env:NAME}
+stage: prod
+inputs:
+  src:
+    src: ./
+    exclude:
+      - .env
+      - .env.local
+  region: '${env:REGION}'
+  runtime: Nodejs12.16
+  role: SCF_QcsRole
+  memorySize: 256
+  isAutoPublish: true
+  timeout: 30
+  vpc:
+    vpcId: '${env:VPC_ID}'
+    subnetId: '${env:SUBNET_ID}'
+  environments:
+    - key: REGION
+      value: '${env:REGION}'
+    - key: STAGE
+      value: '${stage}'
+    - key: MYSQL_DB
+      value: '${env:MYSQL_DB}'
+    - key: MYSQL_USER
+      value: '${env:MYSQL_USER}'
+    - key: MYSQL_HOST
+      value: '${env:MYSQL_HOST}'
+    - key: MYSQL_PORT
+      value: '${env:MYSQL_PORT}'
+    - key: MYSQL_PASSWORD
+      value: '${env:MYSQL_PASSWORD}'
+    - key: REDIS_HOST
+      value: '${env:REDIS_HOST}'
+    - key: REDIS_PORT
+      value: '${env:REDIS_PORT}'
+    - key: REDIS_PASSWORD
+      value: '${env:REDIS_PASSWORD}'
+    - key: TRTC_TIM_APPID
+      value: '${env:TRTC_TIM_APPID}'
+    - key: TRTC_TIM_SECRET
+      value: '${env:TRTC_TIM_SECRET}'
+  functions:
+    - name: '${app}-${name}'
+      type: web
+      memorySize: 256
+      timeout: 30
+      src: ./
+  triggers:
+    - type: apigw
+      parameters:
+        name: live_room_service
+        protocols:
+          - http
+          - https
+        description: Serverless live streaming room service API GW
+        environment: release
+        apis:
+          - path: /
+            apiName: ktv_api
+            method: ANY
+            description: Serverless REST API
+            enableCORS: true
+            responseType: JSON
+            serviceTimeout: 90
+            function: '${app}-${name}'
