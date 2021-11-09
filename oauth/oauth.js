@@ -20,8 +20,6 @@ function create(router) {
       let res = null;
       if (ctx.params.api === 'signature') {
         res = await require('./signature').main_handler(ctx);
-      } else if (ctx.params.api === 'register') {
-        res = await require('./register').main_handler(ctx);
       } else {
         throw new Error(`invalid api ${ctx.params.api}`);
       }
