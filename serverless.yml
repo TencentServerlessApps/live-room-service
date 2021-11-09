@@ -7,7 +7,7 @@ inputs:
     src: ./
     exclude:
       - .env
-      - .env.local
+      - .env.example
   region: '${env:REGION}'
   runtime: Nodejs12.16
   role: SCF_QcsRole

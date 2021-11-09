@@ -24,7 +24,39 @@ npm install
 
 > Note: 关于Node安装，请参考[nodejs](https://nodejs.org/zh-cn/download/)，在Windows下请使用Administrator权限启动`Node.js command prompt`，不支持PowerShell。
 
-然后，创建环境变量文件`.env`，根据.env.example修改，注意需要修改下面所有的`xxx`的内容：
+然后，创建环境变量文件`.env`，可根据.env.example修改，注意需要修改下面所有的`xxx`的内容：
+```
+# TRTC子应用ID
+TRTC_TIM_APPID=xxx
+# TRTC应用签发UserSig密钥
+TRTC_TIM_SECRET=xxx
+
+# VPC ID
+VPC_ID=vpc-xxx
+# 子网 ID
+SUBNET_ID=subnet-xxx
+
+# 地域
+REGION=ap-xxx
+
+# Mysql连接IP/域名
+MYSQL_HOST=xxx
+# Mysql连接端口
+MYSQL_PORT=xxx
+# Mysql登录用户名
+MYSQL_USER=xxx
+# Mysql数据库
+MYSQL_DB=xxx
+# Mysql登录密码
+MYSQL_PASSWORD=xxx
+
+# Redis配置
+REDIS_HOST=x
+# Redis连接端口
+REDIS_PORT=xxx
+# Redis连接密码
+REDIS_PASSWORD=xxx
+```
 
 > Note: TRTC的应用在[TRTC](https://console.cloud.tencent.com/trtc/app)创建，和IM使用同样的应用。
 
